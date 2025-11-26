@@ -1,1 +1,1 @@
-
+Penelitian ini bertujuan untuk memodelkan pola cuaca harian di kawasan ITERA menggunakan Rantai Markov. Proyek ini menganalisis transisi cuaca antar state (Cerah, Berawan, Hujan), menghitung probabilitas perpindahan serta steady-state distribution untuk mengidentifikasi kondisi cuaca yang paling stabil dan dominan. Model ini digunakan untuk memahami dinamika perubahan cuaca dan memproyeksikan kecenderungan cuaca jangka pendek maupun jangka panjang.
