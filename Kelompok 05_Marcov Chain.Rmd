@@ -1,0 +1,72 @@
+---
+title: "Marcov Chain Cuaca"
+author: "Kelompok 05 RA"
+date: "2025-11-13"
+output:
+  html_document: default
+  pdf_document: default
+---
+```{r}
+if (!require(markovchain)) install.packages("markovchain", dependencies = TRUE)
+library(markovchain)
+
+weather_states <- c(
+  "C","C","C","C",
+  "B","B","B","B",
+  "C","C","C","B",
+  "C","C","C","C",
+  "C","C","B","B",
+  "C","C","C","B",
+  "C","C",NA,"B",
+  "C","C","H","B",
+  "C","B","B","H",
+  "C","B","H","H",
+  "C","C","C","C",
+  "C","C","C","B",
+  "C","C","C","C",
+  "C","C","H","B"
+)
+
+weather_states <- na.omit(weather_states)
+
+cat("=== Frekuensi Cuaca ===\n")
+print(table(weather_states))
+
+cat("\n=== Proporsi Cuaca ===\n")
+print(round(prop.table(table(weather_states)), 3))
+
+weather_chain <- as.character(weather_states)
+weather_mc <- markovchainFit(data = weather_chain, method = "mle")
+transition_matrix <- weather_mc$estimate
+
+cat("\n=== Matriks Probabilitas Transisi ===\n")
+print(transition_matrix)
+
+from <- weather_states[-length(weather_states)]
+to <- weather_states[-1]
+
+transition_counts <- table(from, to)
+transition_probs <- prop.table(transition_counts, 1)
+
+cat("\n=== Matriks Frekuensi Transisi ===\n")
+print(transition_counts)
+
+cat("\n=== Matriks Probabilitas Transisi (Empiris) ===\n")
+print(round(transition_probs, 3))
+
+cat("\n=== Uji Sifat Markov ===\n")
+print(verifyMarkovProperty(weather_chain))
+
+cat("\n=== Steady State ===\n")
+steady <- steadyStates(transition_matrix)
+print(steady)
+
+cat("\n=== Prediksi Cuaca 10 Hari ke Depan dari State 'C' ===\n")
+prediksi <- rmarkovchain(n = 10, object = weather_mc$estimate, t0 = "C")
+print(prediksi)
+
+plot(transition_matrix, main = "Model Rantai Markov Pola Cuaca Harian ITERA", vertex.size = 30)
+
+
+```
+
