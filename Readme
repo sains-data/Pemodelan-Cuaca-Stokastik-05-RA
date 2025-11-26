@@ -1,1 +1,122 @@
-Penelitian ini bertujuan untuk memodelkan pola cuaca harian di kawasan ITERA menggunakan Rantai Markov. Proyek ini menganalisis transisi cuaca antar state (Cerah, Berawan, Hujan), menghitung probabilitas perpindahan serta steady-state distribution untuk mengidentifikasi kondisi cuaca yang paling stabil dan dominan. Model ini digunakan untuk memahami dinamika perubahan cuaca dan memproyeksikan kecenderungan cuaca jangka pendek maupun jangka panjang.
+# 🌤️ Pemodelan Pola Cuaca Harian di ITERA Menggunakan Rantai Markov  
+📍 *Institut Teknologi Sumatera (ITERA), 2025*  
+📄 *Sumber laporan:* *Pemodelan Pola Cuaca di ITERA Menggunakan Rantai Markov* :contentReference[oaicite:0]{index=0}
+
+---
+
+## 👥 Tim Peneliti
+- Khaalishah Zuhra Alyaa Vanefi — 122450034  
+- Najla Juwairia — 122450037  
+- Abit Ahmad Oktarian — 122450042  
+- Johannes Krisjon Silitonga — 122450043  
+
+---
+
+## 📌 Deskripsi
+
+Repository ini berisi kode, data, dan hasil analisis **pemodelan pola cuaca harian di kawasan ITERA** menggunakan **Rantai Markov Orde-1**.  
+Model dibangun berdasarkan 55 observasi cuaca harian (Cerah, Berawan, Hujan) dan digunakan untuk menganalisis:
+
+- Karakteristik cuaca harian  
+- Pola transisi antar kondisi cuaca  
+- Matriks frekuensi & probabilitas transisi  
+- Uji sifat Markov (Chi-square)  
+- Peluang *steady state*  
+- Simulasi prediksi cuaca
+
+Tujuan utama penelitian adalah memahami dinamika perubahan cuaca di ITERA dan mendukung pengambilan keputusan berbasis data untuk aktivitas kampus.
+
+---
+
+## 🎯 Tujuan
+
+- Mengidentifikasi karakteristik pola cuaca harian di ITERA  
+- Menyusun matriks probabilitas transisi antar state cuaca  
+- Menguji validitas model menggunakan uji Chi-square  
+- Menghitung peluang steady state jangka panjang  
+- Menyediakan prediksi cuaca berbasis Rantai Markov  
+
+---
+
+## 🛠 Metodologi
+
+### **📍 1. Pengumpulan Data**
+- Data primer hasil observasi langsung  
+- Dicatat 4 kali sehari: **07.00, 11.00, 15.00, 19.00 WIB**  
+- Total observasi harian: **55 hari**
+
+### **📍 2. Klasifikasi State Cuaca**
+| State | Kode | Kriteria |
+|-------|------|-----------|
+| Cerah | C | Langit biru, matahari terang |
+| Berawan | B | Langit tertutup awan |
+| Hujan | H | Gerimis hingga hujan lebat |
+
+### **📍 3. Analisis Data**
+- **Analisis Deskriptif:** menghitung frekuensi & proporsi setiap state  
+- **Agregasi Harian:** menentukan state dominan setiap hari  
+- **Matriks Frekuensi Transisi:** menghitung perpindahan state antar hari  
+- **Matriks Probabilitas Transisi:** dihitung menggunakan metode **Maximum Likelihood (MLE)**  
+- **Uji Sifat Markov:** Chi-square untuk memeriksa validitas orde-1  
+- **Steady State:** menghitung peluang jangka panjang sistem  
+- **Simulasi Prediksi:** memproyeksikan cuaca beberapa hari ke depan  
+
+---
+
+## 📈 Hasil Utama
+
+### **1. Karakteristik Cuaca Harian**
+- Cerah: **63.6%**  
+- Berawan: **27.3%**  
+- Hujan: **9.1%**  
+
+➡ Cuaca di ITERA didominasi oleh **kondisi cerah**.
+
+---
+
+### **2. Matriks Probabilitas Transisi**
+| Dari \ Ke | B | C | H |
+|-----------|---|---|---|
+| **B** | 0.357 | 0.500 | 0.143 |
+| **C** | 0.229 | 0.714 | 0.057 |
+| **H** | 0.400 | 0.400 | 0.200 |
+
+➡ Cerah → Cerah memiliki peluang tertinggi (**0.714**).  
+➡ Semua state cenderung menuju **Cerah** (attractor state).
+
+---
+
+### **3. Uji Sifat Markov**
+- **Chi-square:** 4.997  
+- **p-value:** 0.931 (> 0.05)
+
+➡ **Model valid** sebagai Rantai Markov Orde-1.
+
+---
+
+### **4. Peluang Steady State**
+| State | Peluang |
+|-------|---------|
+| Cerah | **62.4%** |
+| Berawan | 28.1% |
+| Hujan | 9.5% |
+
+➡ Jangka panjang ITERA akan berada dalam kondisi **Cerah ±62%** waktu.
+
+---
+
+### **5. Prediksi Cuaca**
+Simulasi 10 hari dari kondisi awal **Cerah (C)**:  
+C → C → B → C → B → B → B → B → B → C → C
+
+➡ Pola prediksi konsisten dengan hasil steady state & MPT.
+
+---
+
+## 📊 Visualisasi yang Tersedia
+- Diagram Transisi State  
+- Heatmap Matriks Probabilitas Transisi  
+- Grafik Frekuensi Cuaca  
+- Plot Prediksi Cuaca Harian  
+
+
